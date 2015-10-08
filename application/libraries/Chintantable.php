@@ -17,19 +17,19 @@ class Chintantable {
         return $this->onlyelementjson;
     }
     public function query($pageno = 1, $maxlength = 20, $orderby = "", $orderorder = "", $search = "", $elements, $from, $where = " WHERE 1 ", $group = "", $having = "", $order = "", $baseurl = "http://localhost/puneetdemo/index.php/site/index", $options = array()) {
-        //        QUERY
-        //            1. SELECT
-        //            2. FROM
-        //            3. WHERE
-        //            4. GROUP
-        //            5. HAVING
-        //            6. ORDER
-        //            7. LIMIT
-        //        $element->field;
-        //        $element->alias;
-        //        $element->sort;
-        //        $element->filter;
-        //        $element->filterfunction;
+       /*         QUERY
+                    1. SELECT
+                    2. FROM
+                    3. WHERE
+                    4. GROUP
+                    5. HAVING
+                    6. ORDER
+                    7. LIMIT
+                $element->field;
+                $element->alias;
+                $element->sort;
+                $element->filter;
+                $element->filterfunction;*/
         if ($pageno == "") {
             $pageno = 1;
         }
@@ -92,32 +92,46 @@ class Chintantable {
         return $return;
     }
     public function createpagination() {
-        echo '<nav class="chintantablepagination"><ul class="pagination"></ul></nav>';
+        echo '<div class="chintantablepagination"><ul class="pagination"></ul></div>';
     }
     public function createsearch($title = "", $description = "") {
         echo '<div class="loader">
-        <div class="dots">Loading...</div>
+    <div class="preloader-wrapper big active">
+        <div class="spinner-layer spinner-blue-only">
+            <div class="circle-clipper left">
+                <div class="circle"></div>
             </div>
-        <div class="panel-heading">
-    <h3 class="panel-title">' . $title . '</h3>
-</div>
+            <div class="gap-patch">
+                <div class="circle"></div>
+            </div>
+            <div class="circle-clipper right">
+                <div class="circle"></div>
+            </div>
+        </div>
+    </div>
+    <h2 class="blue-text">Please wait...</h2>
+    </div>
 <div class="panel-body">
-    <div class="bootstrap-table">
-        <div class="fixed-table-toolbar">
-            <div class="columns columns-right btn-group pull-right">            
-            <button class="btn btn-default chintantablesearchgo" type="button">Go!</button>
-                <select class="maxrow form-control" style="float: left;  width: 76px;">
+    <div class="row">
+        <div class="col m6 l6">
+            <h5 class="panel-title">' . $title . '</h5>
+        </div>
+        <div class="col m12 l6">
+            <div class="row margintop15">
+                <div class="col s8 m6"><input class="form-control chintantablesearch" type="text" placeholder="Search"></div>
+                <div class="col s4 m3"><button class="btn blue darken-4 chintantablesearchgo waves-effect waves-light" type="button">Go!</button></div>
+                <div class="col s12 m3">
+                <select class="maxrow form-control">
                     <option value="10">10</option>
                     <option value="20">20</option>
                     <option value="50">50</option>
                     <option value="100">100</option>
                 </select>
+                </div>
             </div>
-        <div class="pull-right search">
-            <input class="form-control chintantablesearch" type="text" placeholder="Search">
         </div>
-        </div>
-    </div>';
+    </div>
+</div>';
     }
     public function gethighstockjson($element1, $element2, $from, $where = "", $group = "", $having = "", $order = "", $limit = "", $otherselect = "") {
         if ($where == "") {
