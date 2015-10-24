@@ -20,6 +20,33 @@ class Site extends CI_Controller
 		if(!in_array($accesslevel,$access))
 			redirect( base_url() . 'index.php/site?alerterror=You do not have access to this page. ', 'refresh' );
 	}
+    public function getOrderingDone()
+    {
+        $orderby=$this->input->get("orderby");
+        $ids=$this->input->get("ids");
+        $ids=explode(",",$ids);
+        $tablename=$this->input->get("tablename");
+        $where=$this->input->get("where");
+        if($where == "" || $where=="undefined")
+        {
+            $where=1;
+        }
+        $access = array(
+            '1',
+        );
+        $this->checkAccess($access);
+        $i=1;
+        foreach($ids as $id)
+        {
+            //echo "UPDATE `$tablename` SET `$orderby` = '$i' WHERE `id` = `$id` AND $where";
+            $this->db->query("UPDATE `$tablename` SET `$orderby` = '$i' WHERE `id` = '$id' AND $where");
+            $i++;
+            //echo "/n";
+        }
+        $data["message"]=true;
+        $this->load->view("json",$data);
+        
+    }
 	public function index()
 	{
 		$access = array("1","2");
