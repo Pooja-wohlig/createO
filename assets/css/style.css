@@ -360,3 +360,6 @@ textarea.materialize-textarea:focus:not([readonly]) {
 .pagination li {
     vertical-align: middle;
 }
+.capitalize{ 
+    text-transform: capitalize;  
+}
