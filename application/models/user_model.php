@@ -32,7 +32,7 @@ class User_model extends CI_Model
 	}
 	
 	
-	public function create($name,$email,$password,$accesslevel,$status,$socialid,$logintype,$image,$json)
+	public function create($name,$email,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$firstname,$lastname,$phone,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$billingcontact,$shippingaddress,$shippingcity,$shippingstate,$shippingcountry,$shippingpincode,$shippingcontact,$shippingname,$currency,$credit,$companyname,$registrationno,$vatnumber,$country,$fax,$gender)
 	{
 		$data  = array(
 			'name' => $name,
@@ -43,7 +43,30 @@ class User_model extends CI_Model
             'socialid'=> $socialid,
             'image'=> $image,
             'json'=> $json,
-			'logintype' => $logintype
+			'firstname' => $firstname,
+			'lastname' => $lastname,
+			'phone' => $phone,
+			'billingaddress' => $billingaddress,
+			'billingcity' => $billingcity,
+			'billingstate' => $billingstate,
+			'billingcountry' => $billingcountry,
+			'billingpincode' => $billingpincode,
+			'billingcontact' => $billingcontact,
+			'shippingaddress' => $shippingaddress,
+			'shippingcity' => $shippingcity,
+			'shippingstate' => $shippingstate,
+			'shippingcountry' => $shippingcountry,
+			'shippingpincode' => $shippingpincode,
+			'shippingcontact' => $shippingcontact,
+			'shippingname' => $shippingname,
+			'currency' => $currency,
+			'credit' => $credit,
+			'companyname' => $companyname,
+			'registrationno' => $registrationno,
+			'vatnumber' => $vatnumber,
+			'country' => $country,
+			'fax' => $fax,
+			'gender' => $gender
 		);
 		$query=$this->db->insert( 'user', $data );
 		$id=$this->db->insert_id();
@@ -87,7 +110,7 @@ class User_model extends CI_Model
 		return $query;
 	}
 	
-	public function edit($id,$name,$email,$password,$accesslevel,$status,$socialid,$logintype,$image,$json)
+	public function edit($id,$name,$email,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$firstname,$lastname,$phone,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$billingcontact,$shippingaddress,$shippingcity,$shippingstate,$shippingcountry,$shippingpincode,$shippingcontact,$shippingname,$currency,$credit,$companyname,$registrationno,$vatnumber,$country,$fax,$gender)
 	{
 		$data  = array(
 			'name' => $name,
@@ -97,7 +120,31 @@ class User_model extends CI_Model
             'socialid'=> $socialid,
             'image'=> $image,
             'json'=> $json,
-			'logintype' => $logintype
+			'logintype' => $logintype,
+            'firstname' => $firstname,
+			'lastname' => $lastname,
+			'phone' => $phone,
+			'billingaddress' => $billingaddress,
+			'billingcity' => $billingcity,
+			'billingstate' => $billingstate,
+			'billingcountry' => $billingcountry,
+			'billingpincode' => $billingpincode,
+			'billingcontact' => $billingcontact,
+			'shippingaddress' => $shippingaddress,
+			'shippingcity' => $shippingcity,
+			'shippingstate' => $shippingstate,
+			'shippingcountry' => $shippingcountry,
+			'shippingpincode' => $shippingpincode,
+			'shippingcontact' => $shippingcontact,
+			'shippingname' => $shippingname,
+			'currency' => $currency,
+			'credit' => $credit,
+			'companyname' => $companyname,
+			'registrationno' => $registrationno,
+			'vatnumber' => $vatnumber,
+			'country' => $country,
+			'fax' => $fax,
+			'gender' => $gender
 		);
 		if($password != "")
 			$data['password'] =md5($password);
@@ -295,14 +342,16 @@ class User_model extends CI_Model
 
     }
     function authenticate() {
-        $is_logged_in = $this->session->userdata( 'logged_in' );
-        //print_r($is_logged_in);
-        if ( $is_logged_in !== 'true' || !isset( $is_logged_in ) ) {
+         $is_logged_in = $this->session->userdata( 'logged_in' );
+//        return $is_logged_in;
+        if ( $is_logged_in != true) {
             return false;
         } //$is_logged_in !== 'true' || !isset( $is_logged_in )
         else {
-            $userid = $this->session->userdata( 'id' );
-         return $userid;
+		$userid=$this->session->userdata('id');
+		$query=$this->db->query("SELECT * FROM `user` WHERE `id`='$userid'")->row();
+           // $userid = $this->session->userdata( );
+         return $query;
         }
     }
     
@@ -409,7 +458,15 @@ class User_model extends CI_Model
 		
 		return $return;
 	}
-    
+    public function getgenderdropdown()
+	{
+		$status= array(
+			 "" => "Choose Gender",
+			 "1" => "Male",
+			 "2" => "Female"
+			);
+		return $status;
+	}
 	public function frontendlogout($user)
 	{
         $query=$this->db->query("SELECT `id`, `name`, `email`, `accesslevel`, `timestamp`, `status`, `image`, `username`, `socialid`, `logintype`, `json` FROM `user` WHERE `id`='$user' LIMIT 0,1")->row();
@@ -444,7 +501,7 @@ class User_model extends CI_Model
 //        }
 	}
 	
-    function sociallogin($user_profile,$provider)
+     function sociallogin($user_profile,$provider)
     {
         $query=$this->db->query("SELECT * FROM `user` WHERE `user`.`socialid`='$user_profile->identifier'");
         if($query->num_rows == 0)
@@ -466,7 +523,7 @@ class User_model extends CI_Model
 						break;
 					}
 
-            $query2=$this->db->query("INSERT INTO `user` (`id`, `name`, `password`, `email`, `accesslevel`, `timestamp`, `status`, `image`, `username`, `socialid`, `logintype`, `json`, `dob`, `street`, `address`, `city`, `state`, `country`, `pincode`, `facebook`, `google`, `twitter`) VALUES (NULL, '$user_profile->displayName', '', '$user_profile->email', '3', CURRENT_TIMESTAMP, '1', '$user_profile->photoURL', '', '$user_profile->identifier', '$provider', '', '$user_profile->birthYear-$user_profile->birthMonth-$user_profile->birthDay', '', '$user_profile->address,$user_profile->region', '$user_profile->city', '', '$user_profile->country', '', '$facebookid', '$googleid', '$twitterid')");
+            $query2=$this->db->query("INSERT INTO `user` (`id`, `name`, `password`, `email`, `accesslevel`, `timestamp`, `status`, `image`, `username`, `socialid`, `logintype`, `json`,`facebook`, `google`, `twitter`) VALUES (NULL, '$user_profile->displayName', '', '$user_profile->email', '3', CURRENT_TIMESTAMP, '1', '$user_profile->photoURL', '', '$user_profile->identifier', '$provider', '', '$facebookid', '$googleid', '$twitterid')");
             $id=$this->db->insert_id();
             $newdata = array(
                 'email'     => $user_profile->email,
@@ -479,7 +536,7 @@ class User_model extends CI_Model
             );
 
             $this->session->set_userdata($newdata);
-
+            print_r($newdata);
             return $newdata;
 
         }
@@ -497,9 +554,129 @@ class User_model extends CI_Model
             );
 
             $this->session->set_userdata($newdata);
+             print_r($newdata);
+            return $newdata;
+        }
+    }
+    function registeruser($firstname,$lastname,$email,$password)
+    {
+    	$newdata=0;
+        $password=md5($password);
+        //echo $email;
+        $query=$this->db->query("SELECT `id` FROM `user` WHERE `email`='$email'");
+				$num=$query->num_rows();
+
+        if($num == 0)
+        {
+             $this->db->query("INSERT INTO `user`(`firstname`, `lastname`, `email`, `password`) VALUE('$firstname','$lastname','$email','$password')");
+            $user=$this->db->insert_id();
+           
+            $newdata = array(
+                    'id' => $user,
+                    'email' => $email,
+                    'firstname' => $firstname,
+                    'lastname' => $lastname,
+                    'logged_in' => 'true'
+            );
+
+            $this->session->set_userdata($newdata);
+
+
+        }
+        else
+        {
+						$newdata=false;
+
+				}
+        return $newdata;
+
+    }
+      function loginuser($email,$password)
+    {
+        $password=md5($password);
+        $query=$this->db->query("SELECT `id`,`firstname`,`lastname`,`username`,`name` FROM `user` WHERE `email`='$email' AND `password`= '$password'");
+        if($query->num_rows > 0)
+        {
+            $user=$query->row();
+            $userid=$user->id;
+            $firstname=$user->firstname;
+            $lastname=$user->lastname;
+            $username=$user->username;
+            $name=$user->name;
+
+
+            $newdata = array(
+                'email'     => $email,
+                'firstname'     => $firstname,
+                'lastname'     => $lastname,
+                'username'     => $username,
+                'name'     => $name,
+                'logged_in' => 'true',
+                'id'=> $userid
+            );
+
+            $this->session->set_userdata($newdata);
 
             return $newdata;
         }
+        else
+        return false;
+    }
+        function addToCart($product, $quantity) {
+        //$data=$this->cart->contents();
+
+        $sizequery=$this->db->query("SELECT `size`,`name`,`price`,`color`,`image1` FROM `fynx_product` WHERE `id` = '$product' LIMIT 0,1")->row();
+        $size=$sizequery->size;
+        $productname=$sizequery->name;
+        $price=$sizequery->price;
+        $color=$sizequery->color;
+        $image=$sizequery->image1;
+        
+        $getsize=$this->db->query("SELECT `id`, `status`, `name` FROM `fynx_size` WHERE `id`='$size'")->row();
+        $sizeid=$getsize->id;
+        $sizename=$getsize->name;
+        $getcolor=$this->db->query("SELECT `id`, `name`, `status`, `timestamp` FROM `fynx_color` WHERE `id`='$color'")->row();
+        $colorid=$getcolor->id;
+        $colorname=$getcolor->name;
+        $data = array(
+               'id'      => $product,
+               'name'      => '1',
+               'qty'     => $quantity,
+               'price'   => $price,
+               'image'   => $image,
+                'options' =>array(
+                    'realname' => $productname,
+                    'sizeid' => $sizeid,
+                    'colorid' => $colorid,
+                    'sizename' => $sizename,
+                    'colorname' => $colorname
+                )
+        );
+        $userid=$this->session->userdata('id');
+        if($userid=="")
+        {
+            $this->cart->insert($data);
+            $returnval=$this->cart->insert($data);
+            if(!empty($returnval)){
+            return true;
+            }
+            else{
+            return false;
+            }
+        }
+        else
+        {
+            $query=$this->db->query("INSERT INTO `fynx_cart`(`user`, `product`, `quantity`, `timestamp`,`size`,`color`) VALUES ('$userid','$product','$quantity',NULL,'$size','$color')");
+            $this->cart->insert($data);
+            if($query)
+            return true;
+            else
+            return false;
+        }
+         
+    }
+    function deletecartfromdb($id,$user){
+    $query=$this->db->query("DELETE FROM `fynx_cart` WHERE `product`='$id' AND `user`='$user'");
     }
 }
 ?>

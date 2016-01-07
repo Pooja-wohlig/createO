@@ -151,5 +151,23 @@ class Menu_model extends CI_Model
 		//print_r($url);
 		return $url;
 	}
+    function getDate($date)
+    {
+        $formatteddate = date_create($date);
+        $formatteddate=date_format($formatteddate, 'Y-m-d');
+        return $formatteddate;
+    }
+    function getTodaysDate()
+    {
+       $todaysdate=date("Y-m-d");
+        return $todaysdate;
+    }
+    function getAge($dob)
+    {
+        $from = new DateTime($dob);
+        $to   = new DateTime('today');
+        $calculatedage=$from->diff($to)->y;
+        return $calculatedage;
+    }
 }
 ?>

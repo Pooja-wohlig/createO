@@ -62,6 +62,7 @@ class Site extends CI_Controller
 		$data['accesslevel']=$this->user_model->getaccesslevels();
 		$data[ 'status' ] =$this->user_model->getstatusdropdown();
 		$data[ 'logintype' ] =$this->user_model->getlogintypedropdown();
+        $data['gender']=$this->user_model->getgenderdropdown();
 //        $data['category']=$this->category_model->getcategorydropdown();
 		$data[ 'page' ] = 'createuser';
 		$data[ 'title' ] = 'Create User';
@@ -83,6 +84,7 @@ class Site extends CI_Controller
 		if($this->form_validation->run() == FALSE)	
 		{
 			$data['alerterror'] = validation_errors();
+            $data['gender']=$this->user_model->getgenderdropdown();
 			$data['accesslevel']=$this->user_model->getaccesslevels();
             $data[ 'status' ] =$this->user_model->getstatusdropdown();
             $data[ 'logintype' ] =$this->user_model->getlogintypedropdown();
@@ -100,8 +102,32 @@ class Site extends CI_Controller
             $socialid=$this->input->post('socialid');
             $logintype=$this->input->post('logintype');
             $json=$this->input->post('json');
-//            $category=$this->input->post('category');
+            $firstname=$this->input->post('firstname');
+            $lastname=$this->input->post('lastname');
+            $phone=$this->input->post('phone');
+            $billingaddress=$this->input->post('billingaddress');
+            $billingcity=$this->input->post('billingcity');
+            $billingstate=$this->input->post('billingstate');
+            $billingcountry=$this->input->post('billingcountry');
+            $billingpincode=$this->input->post('billingpincode');
+            $billingcontact=$this->input->post('billingcontact');
             
+            $shippingaddress=$this->input->post('shippingaddress');
+            $shippingcity=$this->input->post('shippingcity');
+            $shippingstate=$this->input->post('shippingstate');
+            $shippingcountry=$this->input->post('shippingcountry');
+            $shippingpincode=$this->input->post('shippingpincode');
+            $shippingcontact=$this->input->post('shippingcontact');
+            $shippingname=$this->input->post('shippingname');
+            $currency=$this->input->post('currency');
+            $credit=$this->input->post('credit');
+            $companyname=$this->input->post('companyname');
+            $registrationno=$this->input->post('registrationno');
+            $vatnumber=$this->input->post('vatnumber');
+            $country=$this->input->post('country');
+            $fax=$this->input->post('fax');
+            $gender=$this->input->post('gender');
+            	
             $config['upload_path'] = './uploads/';
 			$config['allowed_types'] = 'gif|jpg|png|jpeg';
 			$this->load->library('upload', $config);
@@ -137,7 +163,7 @@ class Site extends CI_Controller
                 
 			}
             
-			if($this->user_model->create($name,$email,$password,$accesslevel,$status,$socialid,$logintype,$image,$json)==0)
+			if($this->user_model->create($name,$email,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$firstname,$lastname,$phone,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$billingcontact,$shippingaddress,$shippingcity,$shippingstate,$shippingcountry,$shippingpincode,$shippingcontact,$shippingname,$currency,$credit,$companyname,$registrationno,$vatnumber,$country,$fax,$gender)==0)
 			$data['alerterror']="New user could not be created.";
 			else
 			$data['alertsuccess']="User created Successfully.";
@@ -188,7 +214,7 @@ class Site extends CI_Controller
         $elements[3]->alias="socialid";
         
         $elements[4]=new stdClass();
-        $elements[4]->field="`logintype`.`name`";
+        $elements[4]->field="`user`.`logintype`";
         $elements[4]->sort="1";
         $elements[4]->header="Logintype";
         $elements[4]->alias="logintype";
@@ -239,7 +265,13 @@ class Site extends CI_Controller
 		$access = array("1");
 		$this->checkaccess($access);
 		$data[ 'status' ] =$this->user_model->getstatusdropdown();
+        $data["before1"]=$this->input->get('id');
+        $data["before2"]=$this->input->get('id');
+        $data["before3"]=$this->input->get('id');
+        $data["before4"]=$this->input->get('id');
+        $data["before5"]=$this->input->get('id');
 		$data['accesslevel']=$this->user_model->getaccesslevels();
+		$data['gender']=$this->user_model->getgenderdropdown();
 		$data[ 'logintype' ] =$this->user_model->getlogintypedropdown();
 		$data['before']=$this->user_model->beforeedit($this->input->get('id'));
 		$data['page']='edituser';
@@ -265,6 +297,7 @@ class Site extends CI_Controller
 		{
 			$data['alerterror'] = validation_errors();
 			$data[ 'status' ] =$this->user_model->getstatusdropdown();
+            $data['gender']=$this->user_model->getgenderdropdown();
 			$data['accesslevel']=$this->user_model->getaccesslevels();
             $data[ 'logintype' ] =$this->user_model->getlogintypedropdown();
 			$data['before']=$this->user_model->beforeedit($this->input->post('id'));
@@ -286,7 +319,31 @@ class Site extends CI_Controller
             $logintype=$this->input->get_post('logintype');
             $json=$this->input->get_post('json');
 //            $category=$this->input->get_post('category');
+            $firstname=$this->input->post('firstname');
+            $lastname=$this->input->post('lastname');
+            $phone=$this->input->post('phone');
+            $billingaddress=$this->input->post('billingaddress');
+            $billingcity=$this->input->post('billingcity');
+            $billingstate=$this->input->post('billingstate');
+            $billingcountry=$this->input->post('billingcountry');
+            $billingpincode=$this->input->post('billingpincode');
+            $billingcontact=$this->input->post('billingcontact');
             
+            $shippingaddress=$this->input->post('shippingaddress');
+            $shippingcity=$this->input->post('shippingcity');
+            $shippingstate=$this->input->post('shippingstate');
+            $shippingcountry=$this->input->post('shippingcountry');
+            $shippingpincode=$this->input->post('shippingpincode');
+            $shippingcontact=$this->input->post('shippingcontact');
+            $shippingname=$this->input->post('shippingname');
+            $currency=$this->input->post('currency');
+            $credit=$this->input->post('credit');
+            $companyname=$this->input->post('companyname');
+            $registrationno=$this->input->post('registrationno');
+            $vatnumber=$this->input->post('vatnumber');
+            $country=$this->input->post('country');
+            $fax=$this->input->post('fax');
+            $gender=$this->input->post('gender');
             $config['upload_path'] = './uploads/';
 			$config['allowed_types'] = 'gif|jpg|png|jpeg';
 			$this->load->library('upload', $config);
@@ -329,7 +386,7 @@ class Site extends CI_Controller
                 $image=$image->image;
             }
             
-			if($this->user_model->edit($id,$name,$email,$password,$accesslevel,$status,$socialid,$logintype,$image,$json)==0)
+			if($this->user_model->edit($id,$name,$email,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$firstname,$lastname,$phone,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$billingcontact,$shippingaddress,$shippingcity,$shippingstate,$shippingcountry,$shippingpincode,$shippingcontact,$shippingname,$currency,$credit,$companyname,$registrationno,$vatnumber,$country,$fax,$gender)==0)
 			$data['alerterror']="User Editing was unsuccesful";
 			else
 			$data['alertsuccess']="User edited Successfully.";
@@ -363,6 +420,141 @@ class Site extends CI_Controller
         $data['other']="template=$template";
         $this->load->view("redirect",$data);
 	}
+    public function viewcart()
+{
+$access=array("1");
+$this->checkaccess($access);
+$data["page"]="viewcart";
+    $data["before1"]=$this->input->get('id');
+        $data["before2"]=$this->input->get('id');
+        $data["before3"]=$this->input->get('id');
+        $data["before4"]=$this->input->get('id');
+        $data["before5"]=$this->input->get('id');
+$data['page2']='block/userblock';
+$data["base_url"]=site_url("site/viewcartjson?id=").$this->input->get('id');
+$data["title"]="View cart";
+$this->load->view("templatewith2",$data);
+}
+function viewcartjson()
+{
+    $id=$this->input->get('id');
+$elements=array();
+$elements[0]=new stdClass();
+$elements[0]->field="`fynx_cart`.`id`";
+$elements[0]->sort="1";
+$elements[0]->header="ID";
+$elements[0]->alias="id";
+$elements[1]=new stdClass();
+$elements[1]->field="`fynx_cart`.`user`";
+$elements[1]->sort="1";
+$elements[1]->header="User";
+$elements[1]->alias="user";
+$elements[2]=new stdClass();
+$elements[2]->field="`fynx_cart`.`quantity`";
+$elements[2]->sort="1";
+$elements[2]->header="Quantity";
+$elements[2]->alias="quantity";
+$elements[3]=new stdClass();
+$elements[3]->field="`fynx_cart`.`product`";
+$elements[3]->sort="1";
+$elements[3]->header="Product";
+$elements[3]->alias="product";
+$elements[4]=new stdClass();
+$elements[4]->field="`fynx_cart`.`timestamp`";
+$elements[4]->sort="1";
+$elements[4]->header="Timestamp";
+$elements[4]->alias="timestamp";
+    
+$elements[5]=new stdClass();
+$elements[5]->field="`fynx_cart`.`size`";
+$elements[5]->sort="1";
+$elements[5]->header="Size";
+$elements[5]->alias="size";
+
+$elements[6]=new stdClass();
+$elements[6]->field="`fynx_cart`.`color`";
+$elements[6]->sort="1";
+$elements[6]->header="Color";
+$elements[6]->alias="color";
+$search=$this->input->get_post("search");
+$pageno=$this->input->get_post("pageno");
+$orderby=$this->input->get_post("orderby");
+$orderorder=$this->input->get_post("orderorder");
+$maxrow=$this->input->get_post("maxrow");
+if($maxrow=="")
+{
+$maxrow=20;
+}
+if($orderby=="")
+{
+$orderby="id";
+$orderorder="ASC";
+}
+$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `fynx_cart`","WHERE `fynx_cart`.`user`='$id'");
+$this->load->view("json",$data);
+}
+    public function viewwishlist()
+{
+$access=array("1");
+$this->checkaccess($access);
+$data["page"]="viewwishlist";
+    $data["before1"]=$this->input->get('id');
+        $data["before2"]=$this->input->get('id');
+        $data["before3"]=$this->input->get('id');
+        $data["before4"]=$this->input->get('id');
+        $data["before5"]=$this->input->get('id');
+$data['page2']='block/userblock';
+$data["base_url"]=site_url("site/viewwishlistjson?id=".$this->input->get('id'));
+$data["title"]="View wishlist";
+$this->load->view("templatewith2",$data);
+}
+function viewwishlistjson()
+{
+    $user=$this->input->get('id');
+$elements=array();
+$elements[0]=new stdClass();
+$elements[0]->field="`fynx_wishlist`.`id`";
+$elements[0]->sort="1";
+$elements[0]->header="ID";
+$elements[0]->alias="id";
+$elements[1]=new stdClass();
+$elements[1]->field="`fynx_wishlist`.`user`";
+$elements[1]->sort="1";
+$elements[1]->header="User";
+$elements[1]->alias="user";
+$elements[2]=new stdClass();
+$elements[2]->field="`fynx_wishlist`.`product`";
+$elements[2]->sort="1";
+$elements[2]->header="Product";
+$elements[2]->alias="product";
+$elements[3]=new stdClass();
+$elements[3]->field="`fynx_wishlist`.`timestamp`";
+$elements[3]->sort="1";
+$elements[3]->header="Timestamp";
+$elements[3]->alias="timestamp";
+    
+$elements[4]=new stdClass();
+$elements[4]->field="`fynx_product`.`name`";
+$elements[4]->sort="1";
+$elements[4]->header="Product Name";
+$elements[4]->alias="productname";
+$search=$this->input->get_post("search");
+$pageno=$this->input->get_post("pageno");
+$orderby=$this->input->get_post("orderby");
+$orderorder=$this->input->get_post("orderorder");
+$maxrow=$this->input->get_post("maxrow");
+if($maxrow=="")
+{
+$maxrow=20;
+}
+if($orderby=="")
+{
+$orderby="id";
+$orderorder="ASC";
+}
+$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `fynx_wishlist` LEFT OUTER JOIN `fynx_product` ON `fynx_product`.`id`=`fynx_wishlist`.`product`","WHERE `fynx_wishlist`.`user`='$user'");
+$this->load->view("json",$data);
+}
     
     
     

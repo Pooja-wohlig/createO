@@ -9,6 +9,18 @@
 				<input type="text" id="name" name="name" value="<?php echo set_value('name');?>">
 			</div>
 		</div>
+        <div class="row">
+			<div class="input-field col m6 s12">
+				<label for="firstname">First name</label>
+				<input type="text" id="firstname" name="firstname" value="<?php echo set_value('firstname');?>">
+			</div>
+		</div>
+         <div class="row">
+			<div class="input-field col m6 s12">
+				<label for="lastname">Last name</label>
+				<input type="text" id="lastname" name="lastname" value="<?php echo set_value('lastname');?>">
+			</div>
+		</div>
 		<div class="row">
 			<div class="input-field col m6 s12">
 				<label for="email">Email</label>
@@ -35,8 +47,8 @@
 		</div>
 		<div class="row">
 			<div class="input-field col m6 s12">
-				<label for="contact">Contact</label>
-				<input type="text" id="contact" name="contact" value="<?php echo set_value('contact');?>">
+				<label for="phone">Phone</label>
+				<input type="text" id="phone" name="phone" value="<?php echo set_value('phone');?>">
 			</div>
 		</div>
 		<div class="row">
@@ -87,67 +99,128 @@
 		</div>
 		<div class="row">
 			<div class="input-field col m6 s12">
-				<textarea name="address" class="materialize-textarea" length="120"><?php echo set_value( 'address');?></textarea>
-				<label>Address</label>
+				<textarea name="billingaddress" class="materialize-textarea" length="120"><?php echo set_value( 'billingaddress');?></textarea>
+				<label>Billing Address</label>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col m3 s6">
-				<label for="filled-in-box" class="form-checkbox">Event Notification</label>
+        <div class="row">
+			<div class="input-field col m6 s12">
+				<label for="billingcity">Billing City</label>
+				<input type="text" id="billingcity" name="billingcity" value="<?php echo set_value('billingcity');?>">
 			</div>
-			<div class="col m3 s6">
-				<div class="switch">
-					<label>
-						Off
-						<input type="checkbox" name="eventnotification" value="true">
-						<span class="lever"></span> On
-					</label>
-				</div>
+		</div> 
+        <div class="row">
+			<div class="input-field col m6 s12">
+				<label for="billingstate">Billing State</label>
+				<input type="text" id="billingstate" name="billingstate" value="<?php echo set_value('billingstate');?>">
 			</div>
 		</div>
-
-		<div class="row">
-			<div class="col m3 s6">
-				<label for="filled-in-box" class="form-checkbox">Photo Notification</label>
+        <div class="row">
+			<div class="input-field col m6 s12">
+				<label for="billingcountry">Billing Country</label>
+				<input type="text" id="billingcountry" name="billingcountry" value="<?php echo set_value('billingcountry');?>">
 			</div>
-			<div class="col m3 s6">
-				<div class="switch">
-					<label>
-						Off
-						<input type="checkbox" name="photonotification" value="true">
-						<span class="lever"></span> On
-					</label>
-				</div>
+		</div>  
+        <div class="row">
+			<div class="input-field col m6 s12">
+				<label for="billingcontact">Billing Contact</label>
+				<input type="text" id="billingcontact" name="billingcontact" value="<?php echo set_value('billingcontact');?>">
 			</div>
 		</div>
-
-		<div class="row">
-			<div class="col m3 s6">
-				<label for="filled-in-box" class="form-checkbox">Video Notification</label>
-			</div>
-			<div class="col m3 s6">
-				<div class="switch">
-					<label>
-						Off
-						<input type="checkbox" name="videonotification" value="true">
-						<span class="lever"></span> On
-					</label>
-				</div>
+        <div class="row">
+			<div class="input-field col m6 s12">
+				<label for="billingpincode">Billing Pincode</label>
+				<input type="text" id="billingpincode" name="billingpincode" value="<?php echo set_value('billingpincode');?>">
 			</div>
 		</div>
-
-		<div class="row">
-			<div class="col m3 s6">
-				<label for="filled-in-box" class="form-checkbox">Blog Notification</label>
+         <div class="row">
+			<div class="input-field col m6 s12">
+				<label for="shippingname">Shipping Name</label>
+				<input type="text" id="shippingname" name="shippingname" value="<?php echo set_value('shippingname');?>">
 			</div>
-			<div class="col m3 s6">
-				<div class="switch">
-					<label>
-						Off
-						<input type="checkbox" name="blognotification" value="true">
-						<span class="lever"></span> On
-					</label>
-				</div>
+		</div> 
+        <div class="row">
+			<div class="input-field col m6 s12">
+				<textarea name="shippingaddress" class="materialize-textarea" length="120"><?php echo set_value( 'shippingaddress');?></textarea>
+				<label>Shipping Address</label>
+			</div>
+		</div>
+        <div class="row">
+			<div class="input-field col m6 s12">
+				<label for="shippingcity">Shipping City</label>
+				<input type="text" id="shippingcity" name="shippingcity" value="<?php echo set_value('shippingcity');?>">
+			</div>
+		</div> 
+        <div class="row">
+			<div class="input-field col m6 s12">
+				<label for="shippingcountry">Shipping Country</label>
+				<input type="text" id="shippingcountry" name="shippingcountry" value="<?php echo set_value('shippingcountry');?>">
+			</div>
+		</div>
+        <div class="row">
+			<div class="input-field col m6 s12">
+				<label for="shippingstate">Shipping State</label>
+				<input type="text" id="shippingstate" name="shippingstate" value="<?php echo set_value('shippingstate');?>">
+			</div>
+		</div> 
+        <div class="row">
+			<div class="input-field col m6 s12">
+				<label for="shippingpincode">Shipping Pincode</label>
+				<input type="text" id="shippingpincode" name="shippingpincode" value="<?php echo set_value('shippingpincode');?>">
+			</div>
+		</div> 
+        <div class="row">
+			<div class="input-field col m6 s12">
+				<label for="shippingcontact">Shipping Contact</label>
+				<input type="text" id="shippingcontact" name="shippingcontact" value="<?php echo set_value('shippingcontact');?>">
+			</div>
+		</div> 
+        <div class="row">
+			<div class="input-field col m6 s12">
+				<label for="currency">Currency</label>
+				<input type="text" id="currency" name="currency" value="<?php echo set_value('currency');?>">
+			</div>
+		</div> 
+        <div class="row">
+			<div class="input-field col m6 s12">
+				<label for="credit">Credit</label>
+				<input type="text" id="credit" name="credit" value="<?php echo set_value('credit');?>">
+			</div>
+		</div>
+        <div class="row">
+			<div class="input-field col m6 s12">
+				<label for="companyname">Company Name</label>
+				<input type="text" id="companyname" name="companyname" value="<?php echo set_value('companyname');?>">
+			</div>
+		</div>
+        <div class="row">
+			<div class="input-field col m6 s12">
+				<label for="registrationno">Registration No</label>
+				<input type="text" id="registrationno" name="registrationno" value="<?php echo set_value('registrationno');?>">
+			</div>
+		</div> 
+        <div class="row">
+			<div class="input-field col m6 s12">
+				<label for="vatnumber">VAT Number</label>
+				<input type="text" id="vatnumber" name="vatnumber" value="<?php echo set_value('vatnumber');?>">
+			</div>
+		</div> 
+        <div class="row">
+			<div class="input-field col m6 s12">
+				<label for="country">Country</label>
+				<input type="text" id="country" name="country" value="<?php echo set_value('country');?>">
+			</div>
+		</div> 
+        <div class="row">
+			<div class="input-field col m6 s12">
+				<label for="fax">Fax</label>
+				<input type="text" id="fax" name="fax" value="<?php echo set_value('fax');?>">
+			</div>
+		</div> 
+	   <div class="row">
+			<div class="input-field col m6 s12">
+				<?php echo form_dropdown( 'gender',$gender,set_value( 'gender')); ?>
+					<label>Gender</label>
 			</div>
 		</div>
 
