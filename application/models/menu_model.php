@@ -159,8 +159,21 @@ class Menu_model extends CI_Model
     }
     function getTodaysDate()
     {
-       $todaysdate=date("Y-m-d");
-        return $todaysdate;
+        $todaysdate=date("Y-m-d");
+        $firstdate=date('Y-m-01', strtotime($todaysdate));
+        $lastdate=date('Y-m-t', strtotime($todaysdate));
+    }
+     function getFirstDate()
+    {
+        $todaysdate=date("Y-m-d");
+        $firstdate=date('Y-m-01', strtotime($todaysdate));
+       return $firstdate;
+    } 
+    function getLastDate()
+    {
+        $todaysdate=date("Y-m-d");
+        $lastdate=date('Y-m-t', strtotime($todaysdate));
+       return $lastdate;
     }
     function getAge($dob)
     {
@@ -169,5 +182,12 @@ class Menu_model extends CI_Model
         $calculatedage=$from->diff($to)->y;
         return $calculatedage;
     }
+    function getProjectTitle()
+    {
+       $query=$this->db->query("SELECT `id`, `name`, `logo` FROM `title` WHERE `id`=1")->row();
+       return $query;
+    }
+   
+    
 }
 ?>

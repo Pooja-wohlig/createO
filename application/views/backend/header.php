@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<title><?php echo $title;?> - BusinessApp</title>
+<title><?php echo $title;?></title>
 
 <head>
 	<link rel="shortcut icon" href="<?php echo base_url('assets').'/';?>img/favicon.png" type="image/png"/>
@@ -29,11 +29,19 @@
 	<header>
 			<nav class="blue darken-4">
 			<?php   $menus = $this->menu_model->viewmenus(); 	  ?>
+			<?php   $ProjectTitle = $this->menu_model->getProjectTitle(); 	  ?>
 			<ul id="slide-out" class="side-nav fixed">
 				<li class="sub-menu logo">
 						<a id="logo-container" href="<?php echo site_url(); ?>" class="align-center blue-text text-darken-4" style="font-size: 28px;">
-                            Business<span style="font-weight: 400;">App</span>
+                            <span style="font-weight: 400;"><?php echo $ProjectTitle->name ?></span>
 						</a>
+<!--                    // In case of logo-->
+<!--
+                    <div class="logo">
+							<img src="<?php echo base_url('uploads/logo.png'); ?>" width="40" style="margin-top: 15px;
+    margin-left: 15px; margin-right: 5px;"> Custom Cricket Company
+						</div>
+-->
                     </li>
                     <?php
 				foreach($menus as $row)
