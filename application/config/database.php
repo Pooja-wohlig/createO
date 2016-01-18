@@ -75,10 +75,11 @@ else
     $db['default']['hostname'] = 'localhost';
     $db['default']['username'] = 'root';
     $db['default']['password'] = '';
-    /* dbstarts */
-    $db['default']['database'] = 'createo';
-    /* dbstarts */
-    $db['default']['dbdriver'] = 'mysql';
+
+
+    $db['default']['database'] = 'cfile';
+
+    $db['default']['dbdriver'] = 'mysqli';
     $db['default']['dbprefix'] = '';
     $db['default']['pconnect'] = TRUE;
     $db['default']['db_debug'] = TRUE;

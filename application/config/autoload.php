@@ -108,8 +108,9 @@ $autoload['language'] = array();
 |	$autoload['model'] = array('model1', 'model2');
 |
 */
-/* start */
-$autoload['model'] = array('user_model','menu_model','cart_model','wishlist_model');
-/* start */
+
+
+$autoload['model'] = array('user_model','menu_model','cart_model','wishlist_model','fileupload_model');
+
 /* End of file autoload.php */
 /* Location: ./application/config/autoload.php */
