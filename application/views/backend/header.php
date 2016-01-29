@@ -31,17 +31,22 @@
 			<?php   $menus = $this->menu_model->viewmenus(); 	  ?>
 			<?php   $ProjectTitle = $this->menu_model->getProjectTitle(); 	  ?>
 			<ul id="slide-out" class="side-nav fixed">
-				<li class="sub-menu logo">
+			<li class="sub-menu logo">
+                    		<?php   if($ProjectTitle->name !="") 	{ ?>
 						<a id="logo-container" href="<?php echo site_url(); ?>" class="align-center blue-text text-darken-4" style="font-size: 28px;">
+                           
                             <span style="font-weight: 400;"><?php echo $ProjectTitle->name ?></span>
 						</a>
-<!--                    // In case of logo-->
-<!--
+						<?php }
+                    else if($ProjectTitle->logo !=""){
+                    ?>
                     <div class="logo">
-							<img src="<?php echo base_url('uploads/logo.png'); ?>" width="40" style="margin-top: 15px;
-    margin-left: 15px; margin-right: 5px;"> Custom Cricket Company
+							<img src="<?php echo base_url('uploads').'/'.$ProjectTitle->logo; ?>" width="40" style="margin-top: 15px;
+    margin-left: 15px; margin-right: 5px;">
 						</div>
--->
+						
+						<?php }?>
+
                     </li>
                     <?php
 				foreach($menus as $row)
