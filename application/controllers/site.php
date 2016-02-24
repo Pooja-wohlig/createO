@@ -558,6 +558,211 @@ $this->load->view("json",$data);
     
     
     
-    
+    public function viewreview()
+{
+$access=array("1");
+$this->checkaccess($access);
+$data["page"]="viewreview";
+$data["base_url"]=site_url("site/viewreviewjson");
+$data["title"]="View review";
+$this->load->view("template",$data);
+}
+function viewreviewjson()
+{
+$elements=array();
+$elements[0]=new stdClass();
+$elements[0]->field="`smash_review`.`id`";
+$elements[0]->sort="1";
+$elements[0]->header="id";
+$elements[0]->alias="id";
+$elements[1]=new stdClass();
+$elements[1]->field="`smash_review`.`duration`";
+$elements[1]->sort="1";
+$elements[1]->header="duration";
+$elements[1]->alias="duration";
+$elements[2]=new stdClass();
+$elements[2]->field="`smash_review`.`teamsize`";
+$elements[2]->sort="1";
+$elements[2]->header="teamsize";
+$elements[2]->alias="teamsize";
+$elements[3]=new stdClass();
+$elements[3]->field="`smash_review`.`lastlocation`";
+$elements[3]->sort="1";
+$elements[3]->header="lastlocation";
+$elements[3]->alias="lastlocation";
+$elements[4]=new stdClass();
+$elements[4]->field="`smash_review`.`nextlocation`";
+$elements[4]->sort="1";
+$elements[4]->header="nextlocation";
+$elements[4]->alias="nextlocation";
+$elements[5]=new stdClass();
+$elements[5]->field="`smash_review`.`knowssmash`";
+$elements[5]->sort="1";
+$elements[5]->header="knowssmash";
+$elements[5]->alias="knowssmash";
+$elements[6]=new stdClass();
+$elements[6]->field="`smash_review`.`hostwithsmash`";
+$elements[6]->sort="1";
+$elements[6]->header="hostwithsmash";
+$elements[6]->alias="hostwithsmash";
+$elements[7]=new stdClass();
+$elements[7]->field="`smash_review`.`name`";
+$elements[7]->sort="1";
+$elements[7]->header="name";
+$elements[7]->alias="name";
+$elements[8]=new stdClass();
+$elements[8]->field="`smash_review`.`email`";
+$elements[8]->sort="1";
+$elements[8]->header="email";
+$elements[8]->alias="email";
+$elements[9]=new stdClass();
+$elements[9]->field="`smash_review`.`phone`";
+$elements[9]->sort="1";
+$elements[9]->header="phone";
+$elements[9]->alias="phone";
+$elements[10]=new stdClass();
+$elements[10]->field="`smash_review`.`designation`";
+$elements[10]->sort="1";
+$elements[10]->header="designation";
+$elements[10]->alias="designation";
+$elements[11]=new stdClass();
+$elements[11]->field="`smash_review`.`organization`";
+$elements[11]->sort="1";
+$elements[11]->header="organization";
+$elements[11]->alias="organization";
+$search=$this->input->get_post("search");
+$pageno=$this->input->get_post("pageno");
+$orderby=$this->input->get_post("orderby");
+$orderorder=$this->input->get_post("orderorder");
+$maxrow=$this->input->get_post("maxrow");
+if($maxrow=="")
+{
+$maxrow=20;
+}
+if($orderby=="")
+{
+$orderby="id";
+$orderorder="ASC";
+}
+$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `smash_review`");
+$this->load->view("json",$data);
+}
+
+public function createreview()
+{
+$access=array("1");
+$this->checkaccess($access);
+$data["page"]="createreview";
+$data["title"]="Create review";
+$this->load->view("template",$data);
+}
+public function createreviewsubmit() 
+{
+$access=array("1");
+$this->checkaccess($access);
+$this->form_validation->set_rules("duration","duration","trim");
+$this->form_validation->set_rules("teamsize","teamsize","trim");
+$this->form_validation->set_rules("lastlocation","lastlocation","trim");
+$this->form_validation->set_rules("nextlocation","nextlocation","trim");
+$this->form_validation->set_rules("knowssmash","knowssmash","trim");
+$this->form_validation->set_rules("hostwithsmash","hostwithsmash","trim");
+$this->form_validation->set_rules("name","name","trim");
+$this->form_validation->set_rules("email","email","trim");
+$this->form_validation->set_rules("phone","phone","trim");
+$this->form_validation->set_rules("designation","designation","trim");
+$this->form_validation->set_rules("organization","organization","trim");
+if($this->form_validation->run()==FALSE)
+{
+$data["alerterror"]=validation_errors();
+$data["page"]="createreview";
+$data["title"]="Create review";
+$this->load->view("template",$data);
+}
+else
+{
+$id=$this->input->get_post("id");
+$duration=$this->input->get_post("duration");
+$teamsize=$this->input->get_post("teamsize");
+$lastlocation=$this->input->get_post("lastlocation");
+$nextlocation=$this->input->get_post("nextlocation");
+$knowssmash=$this->input->get_post("knowssmash");
+$hostwithsmash=$this->input->get_post("hostwithsmash");
+$name=$this->input->get_post("name");
+$email=$this->input->get_post("email");
+$phone=$this->input->get_post("phone");
+$designation=$this->input->get_post("designation");
+$organization=$this->input->get_post("organization");
+if($this->review_model->create($duration,$teamsize,$lastlocation,$nextlocation,$knowssmash,$hostwithsmash,$name,$email,$phone,$designation,$organization)==0)
+$data["alerterror"]="New review could not be created.";
+else
+$data["alertsuccess"]="review created Successfully.";
+$data["redirect"]="site/viewreview";
+$this->load->view("redirect",$data);
+}
+}
+public function editreview()
+{
+$access=array("1");
+$this->checkaccess($access);
+$data["page"]="editreview";
+$data["title"]="Edit review";
+$data["before"]=$this->review_model->beforeedit($this->input->get("id"));
+$this->load->view("template",$data);
+}
+public function editreviewsubmit()
+{
+$access=array("1");
+$this->checkaccess($access);
+$this->form_validation->set_rules("id","id","trim");
+$this->form_validation->set_rules("duration","duration","trim");
+$this->form_validation->set_rules("teamsize","teamsize","trim");
+$this->form_validation->set_rules("lastlocation","lastlocation","trim");
+$this->form_validation->set_rules("nextlocation","nextlocation","trim");
+$this->form_validation->set_rules("knowssmash","knowssmash","trim");
+$this->form_validation->set_rules("hostwithsmash","hostwithsmash","trim");
+$this->form_validation->set_rules("name","name","trim");
+$this->form_validation->set_rules("email","email","trim");
+$this->form_validation->set_rules("phone","phone","trim");
+$this->form_validation->set_rules("designation","designation","trim");
+$this->form_validation->set_rules("organization","organization","trim");
+if($this->form_validation->run()==FALSE)
+{
+$data["alerterror"]=validation_errors();
+$data["page"]="editreview";
+$data["title"]="Edit review";
+$data["before"]=$this->review_model->beforeedit($this->input->get("id"));
+$this->load->view("template",$data);
+}
+else
+{
+$id=$this->input->get_post("id");
+$duration=$this->input->get_post("duration");
+$teamsize=$this->input->get_post("teamsize");
+$lastlocation=$this->input->get_post("lastlocation");
+$nextlocation=$this->input->get_post("nextlocation");
+$knowssmash=$this->input->get_post("knowssmash");
+$hostwithsmash=$this->input->get_post("hostwithsmash");
+$name=$this->input->get_post("name");
+$email=$this->input->get_post("email");
+$phone=$this->input->get_post("phone");
+$designation=$this->input->get_post("designation");
+$organization=$this->input->get_post("organization");
+if($this->review_model->edit($id,$duration,$teamsize,$lastlocation,$nextlocation,$knowssmash,$hostwithsmash,$name,$email,$phone,$designation,$organization)==0)
+$data["alerterror"]="New review could not be Updated.";
+else
+$data["alertsuccess"]="review Updated Successfully.";
+$data["redirect"]="site/viewreview";
+$this->load->view("redirect",$data);
+}
+}
+public function deletereview()
+{
+$access=array("1");
+$this->checkaccess($access);
+$this->review_model->delete($this->input->get("id"));
+$data["redirect"]="site/viewreview";
+$this->load->view("redirect",$data);
+}
+
 }
 ?>
